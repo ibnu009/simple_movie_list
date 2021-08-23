@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MovieItem extends StatefulWidget {
+class MovieItem extends StatelessWidget {
   final String movieName, posterPath, category;
   final double rating;
   final int rateCounts;
@@ -12,11 +12,6 @@ class MovieItem extends StatefulWidget {
       this.rating,
       this.rateCounts});
 
-  @override
-  _MovieItemState createState() => _MovieItemState();
-}
-
-class _MovieItemState extends State<MovieItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,18 +25,18 @@ class _MovieItemState extends State<MovieItem> {
             ClipRRect(
               borderRadius: BorderRadius.all(Radius.circular(7)),
               child: Image.network(
-                  "https://image.tmdb.org/t/p/w500${widget.posterPath}"),
+                  "https://image.tmdb.org/t/p/w500${this.posterPath}"),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 12.0),
-              child: Text(widget.movieName,
+              child: Text(this.movieName,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: Colors.white, fontSize: 14)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: Text(
-                widget.category,
+                this.category,
                 style: TextStyle(color: Colors.grey, fontSize: 12),
               ),
             ),
@@ -54,19 +49,23 @@ class _MovieItemState extends State<MovieItem> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 8),
-                    child: Text(widget.rating.toString(),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                        )),
+                    child: Text(
+                      this.rating.toString(),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 4),
-                    child: Text("(${widget.rateCounts.toString()})",
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 12,
-                        )),
+                    child: Text(
+                      "(${this.rateCounts.toString()})",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
                   ),
                 ],
               ),

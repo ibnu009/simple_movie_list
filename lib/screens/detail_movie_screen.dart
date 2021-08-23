@@ -10,6 +10,14 @@ class MovieDetailScreen extends StatefulWidget {
 }
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  bool _isFavorite = false;
+
+  void _changeState() {
+    setState(() {
+      _isFavorite = !_isFavorite;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,15 +29,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             Stack(
               children: [
                 Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                    width: MediaQuery.of(context).size.width * 1,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(
-                            "https://image.tmdb.org/t/p/original${widget.movie.movieBackPoster}",
-                          )),
-                    )),
+                  height: MediaQuery.of(context).size.height * 0.5,
+                  width: MediaQuery.of(context).size.width * 1,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        "https://image.tmdb.org/t/p/original${this.widget.movie.movieBackPoster}",
+                      ),
+                    ),
+                  ),
+                ),
                 Container(
                   height: 350.0,
                   decoration: BoxDecoration(
@@ -54,14 +64,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    widget.movie.movieName,
+                    this.widget.movie.movieName,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                         fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    widget.movie.category,
+                    this.widget.movie.category,
                     textAlign: TextAlign.left,
                     style: TextStyle(
                         color: Colors.white70,
@@ -78,7 +88,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 children: [
                   Column(
                     children: [
-                      Text(widget.movie.movieRateCounts.toString(),
+                      Text(this.widget.movie.movieRateCounts.toString(),
                           style: TextStyle(
                               color: Colors.lightGreen, fontSize: 14)),
                       SizedBox(height: 8.0),
@@ -89,12 +99,23 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   Column(
                     children: [
                       Icon(
-                        Icons.favorite,
+                        Icons.star,
                         color: Colors.yellow,
                       ),
                       SizedBox(height: 8.0),
-                      Text("${widget.movie.movieAverageRating}/10",
-                          style: TextStyle(color: Colors.white, fontSize: 12)),
+                      Text(
+                        "${this.widget.movie.movieAverageRating}/10",
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.favorite),
+                        color: _isFavorite ? Colors.red : Colors.white,
+                        onPressed: _changeState,
+                      ),
                     ],
                   ),
                 ],
@@ -113,7 +134,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
               child: Text(
-                widget.movie.movieDescription,
+                this.widget.movie.movieDescription,
                 style: TextStyle(fontSize: 14, color: Colors.white),
               ),
             ),
@@ -121,5 +142,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         ),
       ),
     );
+    ;
   }
 }
